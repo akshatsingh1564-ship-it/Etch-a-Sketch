@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width = device-width,  initial-scale = 1.0">
+        <title>Etch-a-Sketch</title>
+        <link rel = "stylesheet" href = "Etch-a-Sketch.css">
+
+    </head>
+    <body>
+        <h1>Etch-a-sketch</h1>
+        
+        <div id = "container"></div>
+        <div id = "small">
+            
+            <input type="color" id="colorPicker" value="#000000">
+        </div>
+        
+    <script>
+        const container = document.getElementById("container");
+        const small = document.getElementById("small");
+        const div1 = document.createElement("div");
+        div1.setAttribute("id" , "grid-size");
+        const button1 = document.createElement("button");
+        button1.textContent = 'New Grid';
+        div1.appendChild(button1);
+        small.appendChild(div1);
+
+        const div2 = document.createElement('div');
+        div2.setAttribute("id" , "clear-grid");
+        const button2 = document.createElement('button');
+        button2.textContent = 'Clear';
+        div2.appendChild(button2);
+        small.appendChild(div2);
+
+
+       function getRandomColor() {
+        return `hsl(${Math.random() * 360}, 100%, 50%)`;
+    }
+
+
+
+        function createGrid(n) {
+            container.innerHTML= '';
+            for(let i=0 ; i<n*n ; i++) {
+                const square = document.createElement('div');
+                square.classList.add('grid-square');
+                square.addEventListener("mouseover", ()=> {
+                    square.style.backgroundColor = getRandomColor();
+                });
+                container.appendChild(square);
+            }
+            container.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+            container.style.gridTemplateRows = `repeat(${n}, 1fr)`;
+
+        }
+    
+        button1.addEventListener('click' , (e) => {
+            e.preventDefault();
+            const size = prompt("Enter grid size:");
+            createGrid(size);
+            if(n>100) {
+                alert("Max inputs are 100 !");
+            };
+        });
+
+        button2.addEventListener("click" , () => {
+            const squares = document.querySelectorAll(".grid-square");
+            squares.forEach((square) => {
+                square.style.backgroundColor = "white";
+            });
+        });
+
+    </script>
+    </body>
+</html>
